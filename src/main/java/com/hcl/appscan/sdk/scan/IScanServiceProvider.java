@@ -15,7 +15,6 @@ import org.apache.wink.json4j.JSONException;
 import org.apache.wink.json4j.JSONObject;
 
 import com.hcl.appscan.sdk.auth.IAuthenticationProvider;
-import com.hcl.appscan.sdk.http.HttpResponse;
 import com.hcl.appscan.sdk.logging.IProgress;
 
 /**
@@ -66,7 +65,6 @@ public interface IScanServiceProvider {
 	 * 
 	 * @return The {@link IAuthenticationProvider}.
 	 */
-	
 	public IAuthenticationProvider getAuthenticationProvider();
 	
 	/**
@@ -74,4 +72,16 @@ public interface IScanServiceProvider {
 	 * @param progress The {@link IProgress}.
 	 */
 	public void setProgress(IProgress progress);
+	
+	/**
+	 * Gets the count of issues in JSON format.
+	 * 
+	 * @param scope The scope of the item. One of Application, Scan, or ScanExecution
+	 * @param id The id of the Application/Scan/ScanExectution.
+	 * @param noncompliant True to return counts of noncompliant issues. False to return counts of all issues.
+	 * @return JSONArray containing the issue counts by severity.
+	 * @throws IOException If an error occurs.
+	 * @throws JSONException If an error occurs.
+	 */
+	public JSONArray getIssueCounts(String scope, String id, boolean noncompliant) throws IOException, JSONException;
 }

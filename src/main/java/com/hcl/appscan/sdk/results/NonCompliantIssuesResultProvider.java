@@ -53,29 +53,37 @@ public class NonCompliantIssuesResultProvider extends CloudResultsProvider {
 				m_progress.setStatus(new Message(Message.ERROR, obj.getString(USER_MESSAGE)));
 				setHasResult(true);
 			} else if (m_status != null && !(m_status.equalsIgnoreCase(INQUEUE) || m_status.equalsIgnoreCase(RUNNING))) {
-				JSONArray array = m_scanProvider.getNonCompliantIssues(m_scanId);
-				m_totalFindings = array.length();
+				JSONArray array = m_scanProvider.getIssueCounts("Scan", m_scanId, true);
+				m_totalFindings = 0;
+				
 				for (int i = 0; i < array.length(); i++) {
 					JSONObject jobj = array.getJSONObject(i);
 					String sev = jobj.getString("Severity");
+					int count = jobj.getInt("Count");
+					
 					switch (sev.toLowerCase()) {
 					case "high":
-						m_highFindings++;
+						m_highFindings = count;
+						m_totalFindings += count;
 						break;
 					case "medium":
-						m_mediumFindings++;
+						m_mediumFindings = count;
+						m_totalFindings += count;
 						break;
 					case "low":
-						m_lowFindings++;
+						m_lowFindings = count;
+						m_totalFindings += count;
 						break;
 					case "informational":
-						m_infoFindings++;
+						m_infoFindings = count;
+						m_totalFindings += count;
 						break;
-
 					default:
+						m_totalFindings += count;
 						break;
 					}
 				}
+
 				setHasResult(true);
 			}
 		} catch (IOException | JSONException | NullPointerException e) {
