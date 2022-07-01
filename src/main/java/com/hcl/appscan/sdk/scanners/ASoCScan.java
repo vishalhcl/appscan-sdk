@@ -24,7 +24,6 @@ public abstract class ASoCScan implements IScan, ScanConstants, Serializable {
 	
 	private String m_target;
 	private String m_scanId;
-	private String m_trafficFileId;
 	private IProgress m_progress;
 	private IScanServiceProvider m_serviceProvider;
 	private Map<String, String> m_properties;

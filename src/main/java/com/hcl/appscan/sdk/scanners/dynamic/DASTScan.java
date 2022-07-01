@@ -42,9 +42,12 @@ public class DASTScan extends ASoCScan implements DASTConstants {
 		Map<String, String> params = getProperties();
 		params.put(STARTING_URL, target);
 
-		String scanLoginType = params.remove(LOGIN_TYPE);
+		String scanLoginType = null;
+		if (params.remove(LOGIN_TYPE) != null) {
+			scanLoginType = params.remove(LOGIN_TYPE);
+		}
 
-		if (scanLoginType.equals("Manual")) {
+		if (("Manual").equals(scanLoginType)) {
 			String trafficFile = params.remove(TRAFFIC_FILE);
 			if (trafficFile != null && new File(trafficFile).isFile()) {
 				File fileTraffic = new File(trafficFile);
