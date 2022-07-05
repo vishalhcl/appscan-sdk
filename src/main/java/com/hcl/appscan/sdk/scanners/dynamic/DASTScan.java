@@ -43,8 +43,9 @@ public class DASTScan extends ASoCScan implements DASTConstants {
 		params.put(STARTING_URL, target);
 
 		String scanLoginType = null;
-		if (params.remove(LOGIN_TYPE) != null) {
-			scanLoginType = params.remove(LOGIN_TYPE);
+		if (params.get(LOGIN_TYPE) != null) {
+			scanLoginType = params.get(LOGIN_TYPE);
+			params.remove(LOGIN_TYPE);
 		}
 
 		if (("Manual").equals(scanLoginType)) {
