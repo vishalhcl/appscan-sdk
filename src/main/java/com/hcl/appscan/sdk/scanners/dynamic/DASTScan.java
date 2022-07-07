@@ -62,8 +62,7 @@ public class DASTScan extends ASoCScan implements DASTConstants {
 				} catch (IOException e) {
 					throw new ScannerException(Messages.getMessage(SCAN_FAILED, e.getLocalizedMessage()));
 				}
-			}
-			if(trafficFile != null && (!(new File(trafficFile).isFile()))){
+			} else if(trafficFile != null){
 				throw new ScannerException(Messages.getMessage(ERROR_FILE_UPLOAD,trafficFile));
 			}
 		}
